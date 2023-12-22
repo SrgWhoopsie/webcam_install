@@ -1,6 +1,6 @@
 ***********************webcam install and streaming to octorpint/klipper guide***********************
 
-*******Installing mjpg_streamer*******
+*********Installing mjpg_streamer*********
 //open terminal and input 
 
 sudo apt-get install cmake libjpeg8-dev
@@ -12,20 +12,23 @@ cd mjpg-*
 make
 sudo make install
 
-//start service with 
+*********//start service with********* 
+
 mjpg_streamer -i "/usr/local/lib/mjpg-streamer/input_uvc.so -n -f 10 -r 1280x720" -o "/usr/local/lib/mjpg-streamer/output_http.so -p 8090 -w /usr/local/share/mjpg-streamer/www"
 
-//goto web browser and enter ip address of hosting machine followed by :8090 to test stream, 
+*********//goto web browser and enter ip address of hosting machine followed by :8090 to test stream,*********
 
-//return to terminal and ctrl+c to close running stream.
+*********//return to terminal and ctrl+c to close running stream.*********
 
 *********SETTING UP TO RUN ON STARTUP OF OCTOPRINT OR KLIPPER*********
 //in terminal input 
+
 cd /etc/systemd/system
 sudo nano video0.service
 
 //in next window input 
-// for octoprint
+
+*********// for octoprint*********
 [Unit]
 After=octoprint.service 
 
@@ -35,7 +38,7 @@ ExecStart=/usr/local/bin/video0.sh
 [Install]
 WantedBy=default.target
 
-// for klipper
+*********// for klipper*********
 [Unit]
 After=klipper.service 
 
@@ -50,19 +53,19 @@ WantedBy=default.target
 cd /usr/local/bin
 sudo nano video0.sh 
 
-//in next window input
+*********//in next window input*********
 
 #!/bin/bash
 
 mjpg_streamer -i "/usr/local/lib/mjpg-streamer/input_uvc.so  -n -f 10 -r 1280x720" -o "/usr/local/lib/mjpg-streamer/output_http.so -p 8090 -w /usr/local/share/mjpg-streamer/www"
 
-//ctrl+s to save, crtl+x to exit 
+*********//ctrl+s to save, crtl+x to exit*********
 
-****SET PERMISSIONS FOR BOTH******* 
+*********SET PERMISSIONS FOR BOTH*********
 sudo chmod 744 /usr/local/bin/video0.sh
 sudo chmod 664 /etc/systemd/system/video0.service
 
-****** enable service with*******
+*********enable service with*********
 sudo systemctl daemon-reload
 sudo systemctl enable video0.service
 
@@ -70,14 +73,14 @@ sudo systemctl enable video0.service
 
 
 
-************check camera options with*********
+*********check camera options with*********
 v4l2-ctl --list-devices
 v4l2-ctl --all --device /dev/video0
 v4l2-ctl --list-ctrls-menus 
 v4l2-ctl --list-formats-ext --device /dev/video0
 
 
-******camera options for amazon camera************ 
+*********camera options for amazon camera*********
 User Controls
 
                      brightness 0x00980900 (int)    : min=-64 max=64 step=1 default=0 value=0
