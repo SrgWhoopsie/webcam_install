@@ -1,8 +1,8 @@
 ***********************webcam install and streaming to octorpint/klipper guide***********************
 
 *********Installing mjpg_streamer*********
-//open terminal and input 
 
+*********open terminal and input********* 
 sudo apt-get install cmake libjpeg8-dev
 wget https://github.com/jacksonliam/mjpg-streamer/archive/master.zip
 unzip master.zip
@@ -12,23 +12,23 @@ cd mjpg-*
 make
 sudo make install
 
-*********//start service with********* 
+*********start service with********* 
 
 mjpg_streamer -i "/usr/local/lib/mjpg-streamer/input_uvc.so -n -f 10 -r 1280x720" -o "/usr/local/lib/mjpg-streamer/output_http.so -p 8090 -w /usr/local/share/mjpg-streamer/www"
 
-*********//goto web browser and enter ip address of hosting machine followed by :8090 to test stream,*********
+*********goto web browser and enter ip address of hosting machine followed by :8090 to test stream,*********
 
-*********//return to terminal and ctrl+c to close running stream.*********
+*********return to terminal and ctrl+c to close running stream.*********
 
 *********SETTING UP TO RUN ON STARTUP OF OCTOPRINT OR KLIPPER*********
-//in terminal input 
+*********in terminal input*********
 
 cd /etc/systemd/system
 sudo nano video0.service
 
-//in next window input 
+*********in next window input********* 
 
-*********// for octoprint*********
+*********for octoprint*********
 [Unit]
 After=octoprint.service 
 
@@ -38,7 +38,7 @@ ExecStart=/usr/local/bin/video0.sh
 [Install]
 WantedBy=default.target
 
-*********// for klipper*********
+*********for klipper*********
 [Unit]
 After=klipper.service 
 
@@ -48,18 +48,18 @@ ExecStart=/usr/local/bin/video0.sh
 [Install]
 WantedBy=default.target
 
-//ctrl+s to save, crtl+x to exit 
+*********ctrl+s to save, crtl+x to exit********* 
 
 cd /usr/local/bin
 sudo nano video0.sh 
 
-*********//in next window input*********
+*********in next window input*********
 
 #!/bin/bash
 
 mjpg_streamer -i "/usr/local/lib/mjpg-streamer/input_uvc.so  -n -f 10 -r 1280x720" -o "/usr/local/lib/mjpg-streamer/output_http.so -p 8090 -w /usr/local/share/mjpg-streamer/www"
 
-*********//ctrl+s to save, crtl+x to exit*********
+*********ctrl+s to save, crtl+x to exit*********
 
 *********SET PERMISSIONS FOR BOTH*********
 sudo chmod 744 /usr/local/bin/video0.sh
