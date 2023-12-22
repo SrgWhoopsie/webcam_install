@@ -3,6 +3,7 @@
 *********Installing mjpg_streamer*********
 
 *********open terminal and input********* 
+
 sudo apt-get install cmake libjpeg8-dev
 wget https://github.com/jacksonliam/mjpg-streamer/archive/master.zip
 unzip master.zip
@@ -62,10 +63,12 @@ mjpg_streamer -i "/usr/local/lib/mjpg-streamer/input_uvc.so  -n -f 10 -r 1280x72
 *********ctrl+s to save, crtl+x to exit*********
 
 *********SET PERMISSIONS FOR BOTH*********
+
 sudo chmod 744 /usr/local/bin/video0.sh
 sudo chmod 664 /etc/systemd/system/video0.service
 
 *********enable service with*********
+
 sudo systemctl daemon-reload
 sudo systemctl enable video0.service
 
@@ -74,14 +77,15 @@ sudo systemctl enable video0.service
 
 
 *********check camera options with*********
-v4l2-ctl --list-devices
-v4l2-ctl --all --device /dev/video0
-v4l2-ctl --list-ctrls-menus 
-v4l2-ctl --list-formats-ext --device /dev/video0
+
+v4l2-ctl --list-devices  
+v4l2-ctl --all --device /dev/video0  
+v4l2-ctl --list-ctrls-menus   
+v4l2-ctl --list-formats-ext --device /dev/video0  
 
 
-*********camera options for amazon camera*********
-User Controls
+*********camera options for amazon camera*********  
+User Controls  
 
                      brightness 0x00980900 (int)    : min=-64 max=64 step=1 default=0 value=0
                        contrast 0x00980901 (int)    : min=0 max=64 step=1 default=32 value=32
@@ -98,7 +102,7 @@ User Controls
                       sharpness 0x0098091b (int)    : min=0 max=10 step=1 default=9 value=9
          backlight_compensation 0x0098091c (int)    : min=0 max=2 step=1 default=1 value=1
 
-Camera Controls
+Camera Controls  
 
                   auto_exposure 0x009a0901 (menu)   : min=0 max=3 default=3 value=3 (Aperture Priority Mode)
                                 1: Manual Mode
