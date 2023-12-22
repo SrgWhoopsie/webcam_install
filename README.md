@@ -4,14 +4,14 @@
 
 *********open terminal and input********* 
 
-sudo apt-get install cmake libjpeg8-dev
-wget https://github.com/jacksonliam/mjpg-streamer/archive/master.zip
-unzip master.zip
-rm -rf master.zip
-cd mjp*g-*
-cd mjpg-*
-make
-sudo make install
+sudo apt-get install cmake libjpeg8-dev  
+wget https://github.com/jacksonliam/mjpg-streamer/archive/master.zip  
+unzip master.zip  
+rm -rf master.zip  
+cd mjp*g-*  
+cd mjpg-*  
+make  
+sudo make install  
 
 *********start service with********* 
 
@@ -22,14 +22,15 @@ mjpg_streamer -i "/usr/local/lib/mjpg-streamer/input_uvc.so -n -f 10 -r 1280x720
 *********return to terminal and ctrl+c to close running stream.*********
 
 *********SETTING UP TO RUN ON STARTUP OF OCTOPRINT OR KLIPPER*********
+
 *********in terminal input*********
 
-cd /etc/systemd/system
+cd /etc/systemd/system  
 sudo nano video0.service
 
 *********in next window input********* 
 
-*********for octoprint*********
+*********for octoprint*********  
 [Unit]
 After=octoprint.service 
 
@@ -39,7 +40,7 @@ ExecStart=/usr/local/bin/video0.sh
 [Install]
 WantedBy=default.target
 
-*********for klipper*********
+*********for klipper*********  
 [Unit]
 After=klipper.service 
 
@@ -51,7 +52,7 @@ WantedBy=default.target
 
 *********ctrl+s to save, crtl+x to exit********* 
 
-cd /usr/local/bin
+cd /usr/local/bin  
 sudo nano video0.sh 
 
 *********in next window input*********
@@ -64,13 +65,13 @@ mjpg_streamer -i "/usr/local/lib/mjpg-streamer/input_uvc.so  -n -f 10 -r 1280x72
 
 *********SET PERMISSIONS FOR BOTH*********
 
-sudo chmod 744 /usr/local/bin/video0.sh
-sudo chmod 664 /etc/systemd/system/video0.service
+sudo chmod 744 /usr/local/bin/video0.sh  
+sudo chmod 664 /etc/systemd/system/video0.service  
 
 *********enable service with*********
 
-sudo systemctl daemon-reload
-sudo systemctl enable video0.service
+sudo systemctl daemon-reload  
+sudo systemctl enable video0.service  
 
 
 
